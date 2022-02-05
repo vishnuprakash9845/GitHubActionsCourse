@@ -4,7 +4,7 @@ on: push
 
 jobs:
   Selenium_Test_Job1:
-    name: Selenium Test Job
+    name: Selenium Test Job 1
     runs-on: windows-latest
     
     steps:
@@ -20,3 +20,10 @@ jobs:
       - name: Run a script file from repo
         run: sh ./run.sh
         shell: pwsh
+        
+  Selenium_Test_Job2:
+     name: Selenium Test Job 2
+     runs-on: ubuntu-latest
+     
+     steps:
+       - run: echo "This is from second job"
