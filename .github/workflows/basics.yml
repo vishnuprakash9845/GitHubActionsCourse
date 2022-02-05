@@ -6,6 +6,8 @@ jobs:
   Selenium_Test_Job1:
     name: Selenium Test Job 1
     runs-on: windows-latest
+    env:
+      SELENIUM_DRIVER: 'RemoteWebDriver'
     
     steps:
       - run: echo "This is running inside a ${{ runner.os }} server in GitHub"
@@ -14,12 +16,19 @@ jobs:
       - run: echo "This repo is  ${{ github.repository }} .."
       - name: Run a inline script
         run: |
-          mkdirxnewfolder
+          mkdir newfolder
           ls -l
         shell: bash
       - name: Run a script file from repo
         run: sh ./run.sh
         shell: pwsh
+      - name: Executing during failure
+        if: ${{ failure() }}
+        run: echo "One of the step seems failed"
+      - name: Run Selenium Test
+        if: ${{ env.SELENIUM_DRIVER == 'RemoteWebDriver' }}
+        run: echo "Running test in selenium grid setup"
+      
         
   Selenium_Test_Job2:
      name: Selenium Test Job 2
